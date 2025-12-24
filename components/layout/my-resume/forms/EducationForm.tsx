@@ -122,20 +122,31 @@ const EducationForm = ({ params }: { params: { id: string } }) => {
 
     setIsAiLoading(true);
 
-    const result = await generateEducationDescription(
-      `${formData?.education[index]?.universityName} on ${formData?.education[index]?.degree} in ${formData?.education[index]?.major}`
-    );
+    try {
+      const result = await generateEducationDescription(
+        `${formData?.education[index]?.universityName} on ${formData?.education[index]?.degree} in ${formData?.education[index]?.major}`
+      );
 
-    setAiGeneratedDescriptionList(result);
+      setAiGeneratedDescriptionList(result);
 
-    setIsAiLoading(false);
-
-    setTimeout(function () {
-      listRef?.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      setTimeout(function () {
+        listRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    } catch (error: any) {
+      console.error("Error generating education description:", error);
+      toast({
+        title: "Failed to generate description",
+        description: error.message || "An error occurred while generating the description. Please try again.",
+        variant: "destructive",
+        className: "bg-white border-2",
       });
-    }, 100);
+      setAiGeneratedDescriptionList([]);
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   const onSave = async (e: any) => {

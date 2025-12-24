@@ -113,20 +113,31 @@ const ExperienceForm = ({ params }: { params: { id: string } }) => {
 
     setIsAiLoading(true);
 
-    const result = await generateExperienceDescription(
-      `${formData?.experience[index]?.title} at ${formData?.experience[index]?.companyName}`
-    );
+    try {
+      const result = await generateExperienceDescription(
+        `${formData?.experience[index]?.title} at ${formData?.experience[index]?.companyName}`
+      );
 
-    setAiGeneratedSummaryList(result);
+      setAiGeneratedSummaryList(result);
 
-    setIsAiLoading(false);
-
-    setTimeout(function () {
-      listRef?.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      setTimeout(function () {
+        listRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    } catch (error: any) {
+      console.error("Error generating experience description:", error);
+      toast({
+        title: "Failed to generate description",
+        description: error.message || "An error occurred while generating the description. Please try again.",
+        variant: "destructive",
+        className: "bg-white border-2",
       });
-    }, 100);
+      setAiGeneratedSummaryList([]);
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   const onSave = async (e: any) => {

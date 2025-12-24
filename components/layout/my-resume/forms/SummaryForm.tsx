@@ -34,19 +34,30 @@ const SummaryForm = ({ params }: { params: { id: string } }) => {
 
   const generateSummaryFromAI = async () => {
     setIsAiLoading(true);
+    
+    try {
+      const result = await generateSummary(formData?.jobTitle);
 
-    const result = await generateSummary(formData?.jobTitle);
+      setAiGeneratedSummaryList(result);
 
-    setAiGeneratedSummaryList(result);
-
-    setIsAiLoading(false);
-
-    setTimeout(function () {
-      listRef?.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      setTimeout(function () {
+        listRef?.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    } catch (error: any) {
+      console.error("Error generating summary:", error);
+      toast({
+        title: "Failed to generate summary",
+        description: error.message || "An error occurred while generating the summary. Please try again.",
+        variant: "destructive",
+        className: "bg-white border-2",
       });
-    }, 100);
+      setAiGeneratedSummaryList([]);
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   const onSave = async (e: any) => {

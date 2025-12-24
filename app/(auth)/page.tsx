@@ -111,7 +111,7 @@ const page = () => {
             © {new Date().getFullYear()}{" "}
               
             <span className="hover:text-primary-500 hover:cursor-pointer">
-              ResumeCraft
+              Civi
             </span>
             . All Rights Reserved.
           </span>
