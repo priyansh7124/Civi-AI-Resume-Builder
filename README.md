@@ -83,7 +83,9 @@ Civi is more than just a resume builder — it’s your personal AI-powered care
 ## 🖼 Screenshots
 
 ### Home Page
-![Home Page](./screenshots/Dashboard.png)  
+![Home Page](./screenshots/Starting.png)  
+### Dashboard Page
+![Dashboard Page](./screenshots/Dashboard.png)  
 
 ### Resume Editor
 ![Resume Editor](./screenshots/Editor.png)  
