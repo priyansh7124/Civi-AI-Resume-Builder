@@ -97,7 +97,7 @@ Civi is more than just a resume builder — it’s your personal AI-powered care
 
 ## 🌐 Live Demo
 
-[https://civi-ai.netlify.app/](#)
+[Live Demo Link Here](https://civi-ai.netlify.app/)
 ---
 
 ## 💡 Why Civi Stands Out
